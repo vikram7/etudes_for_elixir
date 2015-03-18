@@ -1,12 +1,30 @@
 defmodule Geom do
   @doc """
-  Calculates the area of a rectangle with sides of value length and width. These values default to 1 if not provided.
+  Calculates the area of a rectangle, triangle and ellipse based on length and width inputs. A rectangle's area is length * width, a triangle's is length * width / 2, and an ellipse is :math.pi * length * width. It also returns 0 for anything other than those three geometrical objects.
   """
 
-  @spec area(number(), number()) :: number()
+  @spec area({atom(), number(), number()}) :: number()
 
-  def area(length \\ 1, width \\ 1) do
+  def area({geometrical_object, length, width}) when length >= 0 and width >= 0 do
+    area(geometrical_object, length, width)
+  end
+
+  @spec area(atom(), number(), number()) :: number()
+
+  defp area(:rectangle, length, width) do
     length * width
+  end
+
+  defp area(:triangle, length, width) do
+    length * width / 2
+  end
+
+  defp area(:ellipse, length, width) do
+    :math.pi() * length * width
+  end
+
+  defp area(_, _, _) do
+    0
   end
 
 end
