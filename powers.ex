@@ -29,6 +29,8 @@ defmodule Powers do
 
   @doc """
   nth_root(x,n) calculates the nth root of a number x
+  using the Newton-Raphson method
+  http://en.wikipedia.org/wiki/Newton%27s_method
   """
 
   @spec nth_root(number(), number()) :: number()
