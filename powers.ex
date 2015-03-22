@@ -1,13 +1,6 @@
 defmodule Powers do
-  import Kernel, except: [raise: 2]
+  import Kernel, except: [raise: 2, raise: 3]
 
-  @doc """
-  Raise a number x to an integer power n.
-  raise(x, 0) => 1
-  raise(x, 1) => x
-  raise(x, n) when n > 0 => x * raise(x, n - 1)
-  raise(x, n) when n < 0 => 1 / raise(x, -n)
-  """
   @spec raise(number(), number()) :: number()
 
   def raise(_, 0) do
@@ -18,11 +11,20 @@ defmodule Powers do
     x
   end
 
-  def raise(x, n) when n > 0 do
-    x * raise(x, n - 1)
+  def raise(x, n) when n < 0 do
+    1.0 / raise(x, -n)
   end
 
-  def raise(x, n) when n < 0 do
-    1 / raise(x, -n)
+  def raise(x, n) when n > 0 do
+    raise(x, n, 1)
   end
+
+  def raise(_, 0, accumulator) do
+    accumulator
+  end
+
+  def raise(x, n, accumulator) do
+    raise(x, n - 1, x * accumulator)
+  end
+
 end
