@@ -17,5 +17,20 @@ defmodule Teeth do
 
   @spec alert(list(list())) :: list()
 
+  def alert(depths) do
+    alert(depths, 1, [])
+  end
 
+  def alert([], _tooth_number, result) do
+    Enum.reverse(result)
+  end
+
+  def alert([h | tail], tooth_number, result) do
+    cond do
+      Stats.maximum(h) >= 4 ->
+        alert(tail, tooth_number + 1, [tooth_number | result])
+      true ->
+        alert(tail, tooth_number + 1, result)
+    end
+  end
 end
